@@ -9,14 +9,16 @@ export async function POST(req: Request) {
   console.log("Custom Endpoint Settings:", customEndpointSettings);
 
   const baseURL = customEndpointSettings?.endpoint || process.env.LLM_BASE_URL;
+  const apiKey = customEndpointSettings?.apiKey || process.env.LLM_API_KEY;
 
   const openai = createOpenAI({
     baseURL,
+    apiKey,
   });
 
   try {
     const result = streamText({
-      model: openai(customEndpointSettings?.modelName || "llama3.2:1b"),
+      model: openai(customEndpointSettings?.modelName || "meta-llama/llama-3.2-11b-vision-instruct:free"),
       messages,
       maxSteps: 5,
     });

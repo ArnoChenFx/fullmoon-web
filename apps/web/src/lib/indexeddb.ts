@@ -28,6 +28,7 @@ interface FullmoonDB extends DBSchema {
     value: {
       id: string;
       customEndpoint?: string;
+      apiKey?: string;
       modelName?: string;
     };
   };
@@ -151,24 +152,28 @@ export class IndexedDBAdapter implements DatabaseAdapter {
 
   async getCustomEndpoint(): Promise<{
     endpoint?: string;
+    apiKey?: string;
     modelName?: string;
   }> {
     const db = await getDB();
     const settings = await db.get("settings", "customEndpoint");
     return {
       endpoint: settings?.customEndpoint,
+      apiKey: settings?.apiKey,
       modelName: settings?.modelName,
     };
   }
 
   async setCustomEndpoint(
     endpoint: string | undefined,
+    apiKey: string | undefined,
     modelName: string | undefined
   ): Promise<void> {
     const db = await getDB();
     await db.put("settings", {
       id: "customEndpoint",
       customEndpoint: endpoint,
+      apiKey: apiKey,
       modelName: modelName,
     });
   }

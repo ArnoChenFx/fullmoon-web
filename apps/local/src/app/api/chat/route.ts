@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 
 const openai = createOpenAI({
   baseURL: process.env.LLM_BASE_URL,
+  apiKey: process.env.LLM_API_KEY,
 });
 
 export async function POST(req: Request) {
@@ -23,7 +24,7 @@ export async function POST(req: Request) {
   }
 
   const result = streamText({
-    model: openai("mlx-community/Llama-3.2-3B-Instruct-4bit"),
+    model: openai("meta-llama/llama-3.2-11b-vision-instruct:free"),
     messages,
     maxSteps: 5,
     async onFinish({ text }) {

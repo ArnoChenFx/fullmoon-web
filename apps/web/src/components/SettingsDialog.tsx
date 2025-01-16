@@ -50,6 +50,7 @@ export default function SettingsDialog({
   const { theme, setTheme } = useTheme();
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [customEndpoint, setCustomEndpoint] = useState<string>("");
+  const [customApiKey, setCustomApiKey] = useState<string>("");
   const [customModelName, setCustomModelName] = useState<string>("");
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [currentView, setCurrentView] = useState<
@@ -67,6 +68,7 @@ export default function SettingsDialog({
       db.getCustomEndpoint().then((settings) => {
         if (mounted) {
           setCustomEndpoint(settings.endpoint || "");
+          setCustomApiKey(settings.apiKey || "");
           setCustomModelName(settings.modelName || "");
         }
       });
@@ -97,6 +99,7 @@ export default function SettingsDialog({
       setSaveSuccess(true);
       await db.setCustomEndpoint(
         customEndpoint || undefined,
+        customApiKey || undefined,
         customModelName || undefined
       );
       onSettingsChange?.();
@@ -255,6 +258,18 @@ export default function SettingsDialog({
                 placeholder="openai compatible endpoint url"
                 value={customEndpoint}
                 onChange={(e) => setCustomEndpoint(e.target.value)}
+                className="h-6 px-0 border-0 shadow-none focus-visible:ring-0 bg-transparent placeholder:text-muted-foreground/50 text-sm"
+              />
+            </div>
+            <div className="px-4 py-2 border-b">
+              <div className="text-xs text-muted-foreground mb-1">
+                api key
+              </div>
+              <Input
+                type="password"
+                placeholder="secret api key of the endpoint"
+                value={customApiKey}
+                onChange={(e) => setCustomApiKey(e.target.value)}
                 className="h-6 px-0 border-0 shadow-none focus-visible:ring-0 bg-transparent placeholder:text-muted-foreground/50 text-sm"
               />
             </div>

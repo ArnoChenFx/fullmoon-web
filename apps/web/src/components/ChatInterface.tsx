@@ -63,6 +63,7 @@ export function ChatInterface({ convo }: ChatInterfaceProps) {
   const [customEndpointSettings, setCustomEndpointSettings] = useState<
     | {
         endpoint?: string;
+        apiKey?: string;
         modelName?: string;
       }
     | undefined
@@ -72,14 +73,14 @@ export function ChatInterface({ convo }: ChatInterfaceProps) {
     db.getCustomEndpoint().then((endpointSettings) => {
       setCustomEndpointSettings(endpointSettings);
       setShowSettingsAlert(
-        !endpointSettings?.endpoint || !endpointSettings?.modelName
+        !endpointSettings?.endpoint || !endpointSettings?.modelName || !endpointSettings?.apiKey
       );
     });
   }, []);
 
   useEffect(() => {
     setShowSettingsAlert(
-      !customEndpointSettings?.endpoint || !customEndpointSettings?.modelName
+      !customEndpointSettings?.endpoint || !customEndpointSettings?.modelName || !customEndpointSettings?.apiKey
     );
   }, [customEndpointSettings]);
 
@@ -356,6 +357,7 @@ export function ChatInterface({ convo }: ChatInterfaceProps) {
                 disabled={
                   !customEndpointSettings?.endpoint ||
                   !customEndpointSettings?.modelName ||
+                  !customEndpointSettings?.apiKey ||
                   isLoading
                 }
                 onKeyDown={(e) => {

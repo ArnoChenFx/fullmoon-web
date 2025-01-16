@@ -67,6 +67,7 @@ ngrok http 10240
 2. open settings
 3. enter your endpoint details:
    - endpoint URL: `https://your-ngrok-url.ngrok.io/v1`
+   - api key: api key of the endpoint (e.g., `ollama`, `lm-studio`)
    - model name: Same as the model you downloaded (e.g., `llama2`, `mistral`)
 
 ## development guide

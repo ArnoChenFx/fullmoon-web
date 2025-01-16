@@ -89,13 +89,13 @@ packages/
 
 ### prerequisites
 
-- Node.js 18+
-- pnpm 8+
+- Node.js 22+
+- bunjs
 
 ### installation
 
 ```bash
-pnpm install
+bun install
 ```
 
 ### running locally
@@ -107,25 +107,25 @@ For local version (sqlite):
 npx prisma migrate dev
 
 # Start development server
-pnpm dev --filter local
+bun run dev --filter local
 ```
 
 For web version (IndexedDB):
 
 ```bash
-pnpm dev --filter web
+bun run dev --filter web
 ```
 
 ### building
 
 ```bash
 # Build all
-pnpm build
+bun run build
 
 # Build specific app
-pnpm build --filter local
+bun run build --filter local
 # or
-pnpm build --filter web
+bun run build --filter web
 ```
 
 ## license
